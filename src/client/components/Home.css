@@ -18,3 +18,13 @@ input {
   border-radius: 12px;
   box-shadow: 0 2px 12px 0 rgba(216,221,230,0.4),0 8px 14px 0 rgba(216,221,230,0.2);
 }
+
+.warning {
+  width: auto;
+  color: #eb5f64;
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 4px;
+  background-color: #fff5f5;
+  box-shadow: 0 1px 1px 0 rgba(238,95,91,0.25);
+}

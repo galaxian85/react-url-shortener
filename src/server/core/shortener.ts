@@ -1,3 +1,4 @@
+import axios from "axios";
 import { addUrlToDB, getUrlById } from "../db/db";
 
 export async function zipUrl(url: string): Promise<string> {
@@ -7,6 +8,22 @@ export async function zipUrl(url: string): Promise<string> {
 
 export async function unzipUrl(shortenId: string): Promise<string> {
   return await getUrlById(shortenIdToId(shortenId));
+}
+
+export async function checkUrlValid(rawUrl: string): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    let url = rawUrl.trim();
+    if (!url.startsWith('http')) {
+      url = `http://${url}`;
+    }
+
+    axios.get(url)
+    .then(res => {
+      const status = res.status;
+      resolve(status >= 200 && status <= 399);
+    })
+    .catch(err => resolve(false));
+  });  
 }
 
 const candidateChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
