@@ -6,7 +6,7 @@ import APP from '../client/components/APP';
 const app = express();
 
 app.use(express.static("public"));
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   const content = renderToString(<APP />);
 
   const html = `
@@ -22,6 +22,10 @@ app.get("/", (req, res) => {
   `;
 
   res.send(html);
+});
+
+app.post('/api', (req, res) => {
+  res.send('some data from server');
 });
 
 app.listen(3000, () => {
