@@ -43,7 +43,6 @@ function idToShortenId(id: number): string {
 }
 
 function shortenIdToId(str: string): number {
-  const candidateLen = candidateChars.length;
   let id = 0;
 
   for (let i = 0, len = str.length; i < len; i++) {

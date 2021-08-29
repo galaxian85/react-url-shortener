@@ -31,7 +31,11 @@ router.get('/', (req, res) => {
 // the redirect service
 router.get('/:shortenId', async (req, res) => {
   const url = await unzipUrl(req.params.shortenId);
-  res.redirect(url);
+  if (url) {
+    res.redirect(url);
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 export default router;

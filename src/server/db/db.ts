@@ -25,7 +25,7 @@ export function addUrlToDB(url: string): Promise<number> {
 export function getUrlById(id: number): Promise<string> {
   return new Promise((resolve, reject) => {
     db.get('SELECT url FROM urlMapping WHERE id = ?', id, (err, row) => {
-      resolve(row['url']);
+      resolve(row ? row['url'] : null);
     });
   });
 }
