@@ -6,6 +6,12 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "build",
-    "jsx": "react"
+    "jsx": "react",
+
+    // type checking
+    "noUnusedLocals": true,
+    "allowUnreachableCode": false,
+    "alwaysStrict": true,
+    "noImplicitReturns": true
   }
 }
