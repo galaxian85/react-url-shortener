@@ -1,5 +1,6 @@
+/* eslint-disable new-cap */
 import express from 'express';
-import { zipUrl, checkUrlValid } from '../../core/shortener';
+import {zipUrl, checkUrlValid} from '../../core/shortener';
 
 const router = express.Router();
 const serviceUrl = 'http://localhost:3000/';
@@ -17,4 +18,4 @@ router.post('/url', async (req, res) => {
   res.send(response);
 });
 
-export { router };
+export {router};

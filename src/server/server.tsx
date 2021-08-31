@@ -1,6 +1,6 @@
 import express from 'express';
 import session from 'express-session';
-import { initDB } from './db/db';
+import {initDB} from './db/db';
 import router from './routes/router';
 
 initDB();
@@ -8,7 +8,7 @@ initDB();
 const app = express();
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static('public'));
 app.use(router);
 app.use(session({
   secret: 'Penguin',
@@ -17,5 +17,5 @@ app.use(session({
 }));
 
 app.listen(3000, () => {
-  console.log("listening on port 3000");
+  console.log('listening on port 3000');
 });

@@ -1,8 +1,9 @@
+/* eslint-disable new-cap */
 import express from 'express';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { router as apiRouter } from './api/api';
-import { unzipUrl } from '../core/shortener';
+import {renderToString} from 'react-dom/server';
+import {router as apiRouter} from './api/api';
+import {unzipUrl} from '../core/shortener';
 import APP from '../../client/components/App';
 
 const router = express.Router();

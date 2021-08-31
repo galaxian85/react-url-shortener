@@ -1,13 +1,18 @@
 import React from 'react';
+import {UrlRow} from './Home';
 
-const UrlList = (props) => {
-  const items = props.urlRows.map(row =>
+interface Props {
+  urlRows: Array<UrlRow>
+}
+
+const UrlList = (props: Props) => {
+  const items = props.urlRows.map((row) =>
     <li key={row.originUrl}>
       <p>origin url: <a href={row.originUrl}>{row.originUrl}</a></p>
       <p>short url: <a href={row.shortenUrl}>{row.shortenUrl}</a></p>
-    </li>
+    </li>,
   );
   return <ul className="url-list">{items}</ul>;
-}
+};
 
 export default UrlList;

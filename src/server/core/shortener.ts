@@ -1,5 +1,5 @@
-import axios from "axios";
-import { addUrlToDB, getUrlById } from "../db/db";
+import axios from 'axios';
+import {addUrlToDB, getUrlById} from '../db/db';
 
 export async function zipUrl(url: string): Promise<string> {
   const id = await addUrlToDB(url);
@@ -11,22 +11,23 @@ export async function unzipUrl(shortenId: string): Promise<string> {
 }
 
 export async function checkUrlValid(rawUrl: string): Promise<boolean> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     let url = rawUrl.trim();
     if (!url.startsWith('http')) {
       url = `http://${url}`;
     }
 
     axios.get(url)
-    .then(res => {
-      const status = res.status;
-      resolve(status >= 200 && status <= 399);
-    })
-    .catch(err => resolve(false));
-  });  
+        .then((res) => {
+          const status = res.status;
+          resolve(status >= 200 && status <= 399);
+        })
+        .catch(() => resolve(false));
+  });
 }
 
-const candidateChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const candidateChars =
+    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const candidateLenth = candidateChars.length;
 
 function idToShortenId(id: number): string {
@@ -34,7 +35,7 @@ function idToShortenId(id: number): string {
   let quotient = id;
 
   do {
-    let mod = quotient % candidateLenth;
+    const mod = quotient % candidateLenth;
     quotient = (quotient - mod) / candidateLenth;
     arr.unshift(candidateChars[mod]);
   } while (quotient);

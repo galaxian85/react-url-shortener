@@ -18,7 +18,7 @@ export function addUrlToDB(url: string): Promise<number> {
       db.get('SELECT last_insert_rowid() FROM urlMapping', (err, row) => {
         resolve(row['last_insert_rowid()']);
       });
-    });  
+    });
   });
 }
 
