@@ -1,26 +1,37 @@
 import axios from 'axios';
 import React, { SyntheticEvent, useState } from 'react';
 import './Home.css';
+import UrlList from './UrlList';
+
+interface UrlRow {
+  originUrl: string,
+  shortenUrl: string,
+}
 
 const Home = (props) => {
   const [inputValue, setInputValue] = useState('');
-  const [shortenUrl, setShortenUrl] = useState('');
   const [isUrlValid, setUrlValid] = useState(true);
+  const [urlRows, setUrlRows] = useState<Array<UrlRow>>([]);
 
   const handleInput = (e: SyntheticEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value);
   }
 
   const submit = () => {
-    axios.post('/api/url', { url: inputValue.trim() })
+    const originUrl = inputValue.trim();
+    axios.post('/api/url', { url: originUrl })
     .then(res => {
-      setShortenUrl(res.data.shortenUrl);
-      setUrlValid(res.data.isUrlValid);
+      const isValid = res.data.isUrlValid;
+      setUrlValid(isValid);
+      if (!isValid) return;
+
+      const item: UrlRow = {
+        originUrl: originUrl,
+        shortenUrl: res.data.shortenUrl,
+      }
+      setUrlRows([item, ...urlRows]);
     });
   };
-
-  const shortUrl = <p>short URL: <a href={shortenUrl}>{shortenUrl}</a></p>;
-  const invalidUrlWarning = <p className="warning">URL invalid!!</p>;
 
   return (
     <div className="wrapper">
@@ -28,9 +39,9 @@ const Home = (props) => {
       <div className="dialog">
         <input onChange={handleInput} placeholder="Write your URL here"></input>
         <button onClick={submit}>Compress!</button>
-        {isUrlValid ? '' : invalidUrlWarning}
-        {shortenUrl ? shortUrl : ''}
+        <p className={`warning ${isUrlValid ? 'hide' : ''}`}>URL invalid!!</p>
       </div>
+      <UrlList urlRows={urlRows} />
     </div>
   );
 }
