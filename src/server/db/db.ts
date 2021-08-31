@@ -10,13 +10,22 @@ export function initDB(): void {
   });
 }
 
-// save url and retrieve auto increment id
-export function addUrlToDB(url: string): Promise<number> {
+// if an url not exist then save it and retrieve auto increment id
+// if already exist, just retrieve id
+export function retrieveId(url: string): Promise<number> {
   return new Promise((resolve, reject) => {
     db.serialize(() => {
-      db.run('INSERT INTO urlMapping(url) VALUES ($url)', {$url: url});
-      db.get('SELECT last_insert_rowid() FROM urlMapping', (err, row) => {
-        resolve(row['last_insert_rowid()']);
+      const stmt = 'SELECT id FROM urlMapping WHERE url = $url';
+      db.get(stmt, {$url: url}, (err, row) => {
+        if (row) {
+          resolve(row['id']);
+          return;
+        }
+
+        db.run('INSERT INTO urlMapping(url) VALUES ($url)', {$url: url});
+        db.get('SELECT last_insert_rowid() FROM urlMapping', (err, row) => {
+          resolve(row['last_insert_rowid()']);
+        });
       });
     });
   });

@@ -29,7 +29,9 @@ const Home = (props) => {
             originUrl: originUrl,
             shortenUrl: res.data.shortenUrl,
           };
-          setUrlRows([item, ...urlRows]);
+          const copy = urlRows
+              .filter((row) => row.shortenUrl != item.shortenUrl);
+          setUrlRows([item, ...copy]);
         });
   };
 

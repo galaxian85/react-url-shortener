@@ -1,8 +1,8 @@
 import axios from 'axios';
-import {addUrlToDB, getUrlById} from '../db/db';
+import {retrieveId, getUrlById} from '../db/db';
 
 export async function zipUrl(url: string): Promise<string> {
-  const id = await addUrlToDB(url);
+  const id = await retrieveId(url);
   return idToShortenId(id);
 }
 
