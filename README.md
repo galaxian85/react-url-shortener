@@ -15,6 +15,7 @@ A simple url shortener service built with [react](https://reactjs.org/) and [exp
 - ReactJS
 - Express
 - Typescript
+- Sqlite3
 
 ## Run locally
 
@@ -42,3 +43,16 @@ npm run build
 ```
 npm start
 ```
+
+## Note
+
+The sqlite3 database is running on "in-memory" mode.
+All data will be lost after server shutdown.
+
+If you want to save the data, goto ./src/server/db/db.ts and edit this line:
+
+```javascript
+const db = new sqlite3.Database(':memory:');
+```
+
+Change the `':memory:'` to a file path you like.
