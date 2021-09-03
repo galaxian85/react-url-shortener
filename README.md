@@ -52,7 +52,7 @@ All data will be lost after server shutdown.
 If you want to save the data, goto ./src/server/db/db.ts and edit this line:
 
 ```javascript
-const db = new sqlite3.Database(':memory:');
+const db = new Database(':memory:');
 ```
 
 Change the `':memory:'` to a file path you like.
