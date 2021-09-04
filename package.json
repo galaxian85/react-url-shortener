@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "better-sqlite3": "^7.4.3",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "react": "^17.0.2",
@@ -42,11 +43,11 @@
     "webpack-node-externals": "^3.0.0"
   },
   "scripts": {
-    "build": "webpack --config webpack.server.js && webpack --config webpack.client.js",
+    "build": "NODE_ENV=production && webpack --config webpack.server.js && webpack --config webpack.client.js",
     "start": "node build/bundle.js",
-    "dev": "npm-run-all --parallel dev:server dev:build:*",
-    "dev:server": "nodemon --inspect build/bundle.js",
-    "dev:build:server": "webpack --config webpack.server.js --watch",
-    "dev:build:client": "webpack --config webpack.client.js --watch"
+    "dev": "NODE_ENV=development && npm-run-all --parallel dev:server dev:build:*",
+    "dev:server": "NODE_ENV=development && nodemon --inspect build/bundle.js",
+    "dev:build:server": "NODE_ENV=development && webpack --config webpack.server.js --watch",
+    "dev:build:client": "NODE_ENV=development && webpack --config webpack.client.js --watch"
   }
 }

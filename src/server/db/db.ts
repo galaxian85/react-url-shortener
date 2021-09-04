@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
+import {isProduction} from '../server';
 
-const db = new Database(':memory:');
+const db = new Database(isProduction ? 'sqlite.db' : ':memory:');
 
 export function initDB(): void {
   db.prepare(`CREATE TABLE IF NOT EXISTS urlMapping (
