@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
   const html = `
     <html>
       <head>
+        <title>simple url shortener</title>
         <link rel="stylesheet" href="main.css">
       </head>
       <body>
