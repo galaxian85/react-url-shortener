@@ -6,6 +6,7 @@ import router from './routes/router';
 initDB();
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -16,6 +17,6 @@ app.use(session({
   saveUninitialized: false,
 }));
 
-app.listen(3000, () => {
-  console.log('listening on port 3000');
+app.listen(port, () => {
+  console.log(`listening on port ${port}`);
 });

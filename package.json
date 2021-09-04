@@ -1,7 +1,11 @@
 {
-  "name": "turbo-chainsaw",
+  "name": "react-url-shortener",
   "version": "0.1.0",
+  "engines": {
+    "node": "14.x"
+  },
   "description": "A simple node/react URL shortener",
+  "main": "/build/bundle.js",
   "dependencies": {
     "axios": "^0.21.1",
     "better-sqlite3": "^7.4.3",
