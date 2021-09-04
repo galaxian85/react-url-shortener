@@ -10,7 +10,7 @@ router.post('/url', async (req, res) => {
     shortenUrl: '',
     isUrlValid: false,
   };
-  const url = req.body.url;
+  const url = req.body.url.trim();
   response.isUrlValid = await checkUrlValid(url);
   if (response.isUrlValid) {
     response.shortenUrl = `${serviceUrl}/${zipUrl(url)}`;

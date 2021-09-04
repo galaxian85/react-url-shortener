@@ -14,7 +14,9 @@ export function initDB(): void {
 
 // if an url not exist then save it and retrieve auto increment id
 // if already exist, just retrieve id
-export function retrieveId(url: string): number {
+export function retrieveId(rawUrl: string): number {
+  const url = rawUrl.replace(new RegExp('^(http://|https://)'), '');
+
   let id: number;
 
   const row = db.prepare(`SELECT id FROM urlMapping WHERE url = ?`).get(url);
