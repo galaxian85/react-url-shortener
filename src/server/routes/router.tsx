@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   const content = renderToString(<APP />);
 
   const html = `
-    <html>
+    <html lang="en">
       <head>
         <title>simple url shortener</title>
         <link rel="stylesheet" href="main.css">
