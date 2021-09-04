@@ -13,7 +13,7 @@ router.post('/url', async (req, res) => {
   const url = req.body.url;
   response.isUrlValid = await checkUrlValid(url);
   if (response.isUrlValid) {
-    response.shortenUrl = `${serviceUrl}/${await zipUrl(url)}`;
+    response.shortenUrl = `${serviceUrl}/${zipUrl(url)}`;
   }
   res.send(response);
 });

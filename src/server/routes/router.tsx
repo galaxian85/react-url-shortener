@@ -30,10 +30,10 @@ router.get('/', (req, res) => {
 });
 
 // the redirect service
-router.get('/:shortenId', async (req, res) => {
-  const url = await unzipUrl(req.params.shortenId);
+router.get('/:shortenId', (req, res) => {
+  const url = unzipUrl(req.params.shortenId);
   if (url) {
-    res.redirect(url);
+    res.redirect(`http://${url}`);
   } else {
     res.sendStatus(404);
   }

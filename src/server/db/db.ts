@@ -4,6 +4,7 @@ import {isProduction} from '../server';
 const db = new Database(isProduction ? 'sqlite.db' : ':memory:');
 
 export function initDB(): void {
+  // db = new Database(isProduction ? 'sqlite.db' : ':memory:');
   db.prepare(`CREATE TABLE IF NOT EXISTS urlMapping (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     url TEXT NOT NULL)`).run();
@@ -20,5 +21,5 @@ export function retrieveId(url: string): number {
 }
 
 export function getUrlById(id: number): string {
-  return db.prepare(`SELECT url FROM urlMapping WHERE id = ?`).get(id).id;
+  return db.prepare(`SELECT url FROM urlMapping WHERE id = ?`).get(id).url;
 }

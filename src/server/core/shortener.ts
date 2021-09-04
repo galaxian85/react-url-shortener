@@ -1,13 +1,13 @@
 import axios from 'axios';
 import {retrieveId, getUrlById} from '../db/db';
 
-export async function zipUrl(url: string): Promise<string> {
-  const id = await retrieveId(url);
+export function zipUrl(url: string): string {
+  const id = retrieveId(url);
   return idToShortenId(id);
 }
 
-export async function unzipUrl(shortenId: string): Promise<string> {
-  return await getUrlById(shortenIdToId(shortenId));
+export function unzipUrl(shortenId: string): string {
+  return getUrlById(shortenIdToId(shortenId));
 }
 
 export async function checkUrlValid(rawUrl: string): Promise<boolean> {
