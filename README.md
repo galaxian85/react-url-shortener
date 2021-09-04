@@ -16,12 +16,16 @@ A simple url shortener service built with [react](https://reactjs.org/) and [exp
 - Express
 - Typescript
 - Sqlite3
+- Redis
 
 ## Live demo
 
 https://url-shortener-9527.herokuapp.com/
 
 ## Run locally
+
+*This app use [Redis](https://redis.io/) as cache, you need install Redis first if you don't have one.*
+
 
 1. Clone the repository and change directory.
 
