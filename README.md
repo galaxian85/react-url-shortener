@@ -17,6 +17,10 @@ A simple url shortener service built with [react](https://reactjs.org/) and [exp
 - Typescript
 - Sqlite3
 
+## Live demo
+
+https://url-shortener-9527.herokuapp.com/
+
 ## Run locally
 
 1. Clone the repository and change directory.
@@ -32,27 +36,8 @@ cd react-url-shortener
 npm install
 ```
 
-3. Compile typescript
+3. Running on development environment
 
 ```
-npm run build
+npm run dev
 ```
-
-4. Run the app locally.
-
-```
-npm start
-```
-
-## Note
-
-The sqlite3 database is running on "in-memory" mode.
-All data will be lost after server shutdown.
-
-If you want to save the data, goto ./src/server/db/db.ts and edit this line:
-
-```javascript
-const db = new Database(':memory:');
-```
-
-Change the `':memory:'` to a file path you like.
