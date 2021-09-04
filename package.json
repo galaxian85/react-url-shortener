@@ -14,7 +14,8 @@
     "express-session": "^1.17.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-router-dom": "^5.2.1"
+    "react-router-dom": "^5.2.1",
+    "redis": "^3.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -25,6 +26,7 @@
     "@types/express": "^4.17.13",
     "@types/express-session": "^1.17.4",
     "@types/react-dom": "^17.0.9",
+    "@types/redis": "^2.8.31",
     "@types/sqlite3": "^3.1.7",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",

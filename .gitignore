@@ -109,3 +109,6 @@ public/
 
 # sqlite3 database file
 sqlite.db
+
+# redis dump file
+dump.rdb
