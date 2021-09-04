@@ -6,8 +6,8 @@ export function zipUrl(url: string): string {
   return idToShortenId(id);
 }
 
-export function unzipUrl(shortenId: string): string {
-  return getUrlById(shortenIdToId(shortenId));
+export async function unzipUrl(shortenId: string): Promise<string> {
+  return await getUrlById(shortenIdToId(shortenId));
 }
 
 export async function checkUrlValid(rawUrl: string): Promise<boolean> {
