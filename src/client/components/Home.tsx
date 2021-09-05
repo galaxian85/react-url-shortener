@@ -55,7 +55,6 @@ const Home = (props) => {
   useEffect(() => {
     if (!username) {
       axios.get('/api/member').then((res) => {
-        console.log(res.data);
         const data = res.data;
         if (!data.username) return;
 

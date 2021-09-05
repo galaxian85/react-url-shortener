@@ -1,6 +1,8 @@
 import Database from 'better-sqlite3';
 import redis from 'redis';
-import {isProduction} from '../server';
+import {UrlRow} from '../../client/components/Home';
+import {idToShortenId} from '../core/shortener';
+import {isProduction, serviceUrl} from '../server';
 
 const db = new Database(isProduction ? 'sqlite.db' : ':memory:');
 const rds = redis.createClient(process.env.REDIS_URL);
@@ -86,4 +88,29 @@ export function addMember(username: string, password: string): boolean {
   } catch (_) {
     return false;
   }
+}
+
+export function getAllHistory(username: string): Array<UrlRow> {
+  const stmt = db.prepare(`SELECT historyList.urlId, urlMapping.url
+    FROM historyList
+    INNER JOIN urlMapping ON historyList.urlId = urlMapping.id
+    WHERE username = ?`);
+  const rows = stmt.all(username);
+
+  console.log(rows);
+
+  return rows.reverse().map<UrlRow>((item) => {
+    return {
+      shortenUrl: `${serviceUrl}/${idToShortenId(item.urlId)}`,
+      originUrl: item.url,
+    };
+  });
+}
+
+export function addHistory(username: string, urlId: number): void {
+  try {
+    db.prepare(`INSERT INTO historyList VALUES (?, ?)`).run(username, urlId);
+  } catch (err) {
+    console.log(err);
+  };
 }

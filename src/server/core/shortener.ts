@@ -1,9 +1,8 @@
 import axios from 'axios';
 import {retrieveId, getUrlById} from '../db/db';
 
-export function zipUrl(url: string): string {
-  const id = retrieveId(url);
-  return idToShortenId(id);
+export function zipUrl(url: string): number {
+  return retrieveId(url);
 }
 
 export async function unzipUrl(shortenId: string): Promise<string> {
@@ -30,7 +29,7 @@ const candidateChars =
     '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const candidateLenth = candidateChars.length;
 
-function idToShortenId(id: number): string {
+export function idToShortenId(id: number): string {
   const arr = [];
   let quotient = id;
 
@@ -43,7 +42,7 @@ function idToShortenId(id: number): string {
   return arr.join('');
 }
 
-function shortenIdToId(str: string): number {
+export function shortenIdToId(str: string): number {
   let id = 0;
 
   for (let i = 0, len = str.length; i < len; i++) {

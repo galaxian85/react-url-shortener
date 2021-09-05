@@ -1,6 +1,7 @@
 /* eslint-disable new-cap */
 import express from 'express';
-import {checkUrlValid, zipUrl} from '../../core/shortener';
+import {checkUrlValid, idToShortenId, zipUrl} from '../../core/shortener';
+import {addHistory, getAllHistory} from '../../db/db';
 import {serviceUrl} from '../../server';
 
 const router = express.Router();
@@ -13,17 +14,27 @@ router.post('/', async (req, res) => {
   const url = req.body.url.trim();
   response.isUrlValid = await checkUrlValid(url);
   if (response.isUrlValid) {
-    response.shortenUrl = `${serviceUrl}/${zipUrl(url)}`;
+    const zipped = zipUrl(url);
+    const shortenUrl = idToShortenId(zipped);
+    response.shortenUrl = `${serviceUrl}/${shortenUrl}`;
+
+    const username = req.session.username;
+    if (username) {
+      addHistory(username, zipped);
+    }
   }
+
   res.send(response);
 });
 
 router.get('/list', (req, res) => {
-  res.send({list: [
-    {originUrl: '1', shortenUrl: '1'},
-    {originUrl: '2', shortenUrl: '2'},
-    {originUrl: '3', shortenUrl: '3'},
-  ]});
+  const username = req.session.username;
+  if (!username) {
+    res.send(403);
+    return;
+  }
+
+  res.send({list: getAllHistory(username)});
 });
 
 export {router};
