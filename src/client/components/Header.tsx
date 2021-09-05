@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useContext} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import './Header.css';
@@ -9,6 +10,7 @@ const Header = (props) => {
 
   const handleLogout = () => {
     setUsername('');
+    axios.delete('/api/member');
     history.push('/');
   };
 
