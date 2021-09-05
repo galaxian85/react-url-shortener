@@ -10,7 +10,7 @@ input {
 
 .wrapper {
   max-width: 690px;
-  margin: 100px 80px;
+  margin: 100px auto;
 }
 
 .dialog {
