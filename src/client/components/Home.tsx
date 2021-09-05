@@ -1,6 +1,5 @@
 import axios from 'axios';
-import React, {SyntheticEvent, useContext, useState} from 'react';
-// import {useHistory} from 'react-router-dom';
+import React, {SyntheticEvent, useContext, useEffect, useState} from 'react';
 import './Home.css';
 import UrlList from './UrlList';
 import UserContext from './UserContext';
@@ -36,13 +35,9 @@ const Home = (props) => {
     });
   };
 
+
   const {username, setUsername} = useContext(UserContext);
-  axios.get('/api/member').then((res) => {
-    const data = res.data;
-    if (!data.username) return;
-
-    setUsername(data.username);
-
+  const getUrlList = () => {
     axios.get('/api/url/list').then((res) => {
       const data = res.data;
       const rows: Array<UrlRow> = data.list.map((item) => {
@@ -55,7 +50,23 @@ const Home = (props) => {
     }).catch((err) => {
       setUsername('');
     });
-  });
+  };
+
+  useEffect(() => {
+    if (!username) {
+      axios.get('/api/member').then((res) => {
+        console.log(res.data);
+        const data = res.data;
+        if (!data.username) return;
+
+        setUsername(data.username);
+
+        getUrlList();
+      });
+    } else {
+      getUrlList();
+    }
+  }, []);
 
   return (
     <div className="wrapper">
