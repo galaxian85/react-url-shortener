@@ -5,7 +5,7 @@ import {serviceUrl} from '../../server';
 
 const router = express.Router();
 
-router.post('/url', async (req, res) => {
+router.post('/', async (req, res) => {
   const response = {
     shortenUrl: '',
     isUrlValid: false,
@@ -16,6 +16,14 @@ router.post('/url', async (req, res) => {
     response.shortenUrl = `${serviceUrl}/${zipUrl(url)}`;
   }
   res.send(response);
+});
+
+router.get('/list', (req, res) => {
+  res.send({list: [
+    {originUrl: '1', shortenUrl: '1'},
+    {originUrl: '2', shortenUrl: '2'},
+    {originUrl: '3', shortenUrl: '3'},
+  ]});
 });
 
 export {router};

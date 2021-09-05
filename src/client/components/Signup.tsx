@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {SyntheticEvent, useContext, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import UserContext from './UserContext';
 
 const Signup = (props) => {
@@ -19,11 +20,11 @@ const Signup = (props) => {
   };
 
   const {setUsername} = useContext(UserContext);
-
+  const history = useHistory();
   const submit = () => {
     setErrorMsg('');
 
-    const emailTrim = usernameValue.trim();
+    const usernameTrim = usernameValue.trim();
     const pw1Trim = pw1Value.trim();
     const pw2Trim = pw2Value.trim();
 
@@ -33,13 +34,14 @@ const Signup = (props) => {
     }
 
     const data = {
-      email: emailTrim,
+      username: usernameTrim,
       password: pw1Trim,
     };
     axios.post('/api/member', data).then((res) => {
       const data = res.data;
       if (data.username) {
         setUsername(data.username);
+        history.push('/');
       } else if (data.error) {
         setErrorMsg(data.error);
       }

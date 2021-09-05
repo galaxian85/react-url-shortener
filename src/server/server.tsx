@@ -24,12 +24,12 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static('public'));
-app.use(router);
 app.use(session({
   secret: 'Penguin',
-  resave: false,
+  resave: true,
   saveUninitialized: false,
 }));
+app.use(router);
 
 
 if (!isProduction) {

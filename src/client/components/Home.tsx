@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, {SyntheticEvent, useContext, useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import {logoutCurrentUser} from '../util/util';
+// import {useHistory} from 'react-router-dom';
 import './Home.css';
 import UrlList from './UrlList';
 import UserContext from './UserContext';
@@ -37,10 +36,13 @@ const Home = (props) => {
     });
   };
 
+  const {username, setUsername} = useContext(UserContext);
+  axios.get('/api/member').then((res) => {
+    const data = res.data;
+    if (!data.username) return;
 
-  const {username} = useContext(UserContext);
-  if (username) {
-    useHistory().push('/mypage');
+    setUsername(data.username);
+
     axios.get('/api/url/list').then((res) => {
       const data = res.data;
       const rows: Array<UrlRow> = data.list.map((item) => {
@@ -51,9 +53,9 @@ const Home = (props) => {
       });
       setUrlRows(rows);
     }).catch((err) => {
-      logoutCurrentUser();
+      setUsername('');
     });
-  }
+  });
 
   return (
     <div className="wrapper">

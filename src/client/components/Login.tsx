@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React, {SyntheticEvent, useState} from 'react';
+import React, {SyntheticEvent, useContext, useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import UserContext from './UserContext';
 
 const Login = (props) => {
   const [usernameValue, setUsernameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [errorMsg, setErorrMsg] = useState('');
-  const history = useHistory();
 
   const handleUsername = (e:SyntheticEvent<HTMLInputElement>) => {
     setUsernameValue(e.currentTarget.value);
@@ -15,6 +15,8 @@ const Login = (props) => {
     setPasswordValue(e.currentTarget.value);
   };
 
+  const {setUsername} = useContext(UserContext);
+  const history = useHistory();
   const submit = () => {
     setErorrMsg('');
     const data = {
@@ -24,7 +26,8 @@ const Login = (props) => {
     axios.post('/api/login', data).then((res) => {
       const data = res.data;
       if (data.username) {
-        history.push('/mypage');
+        setUsername(data.username);
+        history.push('/');
       } else if (data.error) {
         setErorrMsg(data.error);
       }

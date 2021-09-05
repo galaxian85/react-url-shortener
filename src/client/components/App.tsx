@@ -14,7 +14,7 @@ const APP = (props) => {
   return (
     <UserContext.Provider value={contextValue}>
       <Header />
-      <Route exact path="/(|mypage)"><Home /></Route>
+      <Route exact path="/"><Home /></Route>
       <Route path="/login"><Login /></Route>
       <Route path="/signup"><Signup /></Route>
     </UserContext.Provider>

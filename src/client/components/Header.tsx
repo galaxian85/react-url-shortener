@@ -1,14 +1,15 @@
 import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
-import {logoutCurrentUser} from '../util/util';
+import {Link, useHistory} from 'react-router-dom';
 import './Header.css';
 import UserContext from './UserContext';
 
 const Header = (props) => {
-  const {username} = useContext(UserContext);
+  const {username, setUsername} = useContext(UserContext);
+  const history = useHistory();
 
   const handleLogout = () => {
-    logoutCurrentUser();
+    setUsername('');
+    history.push('/');
   };
 
   return (
@@ -17,7 +18,8 @@ const Header = (props) => {
       <Link to="/login" className={`log-btn ${username ? 'hide' : ''}`}>
         <span>Login</span>
       </Link>
-      <a onClick={handleLogout} className={`log-btn ${username ? '' : 'hide'}`}>
+      <a onClick={handleLogout} className={`log-btn ${username ? '' : 'hide'}`}
+        href="#">
         <span>Logout</span>
       </a>
       <Link to="/signup" className={`sign-btn ${username ? 'hide' : ''}`}>

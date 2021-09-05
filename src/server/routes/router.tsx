@@ -12,7 +12,7 @@ const router = express.Router();
 router.use(apiRouter);
 
 // server side rendered homepage
-router.get('/(|login|signup|mypage)', (req, res) => {
+router.get('/(|login|signup)', (req, res) => {
   const content = renderToString(
       <StaticRouter location={req.path}>
         <APP />
